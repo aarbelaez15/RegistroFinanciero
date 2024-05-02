@@ -1,0 +1,85 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Finanzas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .total {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .agregar-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Registro de Ingresos y Egresos</h1>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                    <tr>
+                        <td>${{ registro.monto }}</td>
+                        <td>{{ registro.fecha.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ registro.descripcion }}</td>
+                        <td>{{ registro.tipo }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total">Total: ${{ total }}</p>
+
+        <a href="/agregar" class="btn btn-primary agregar-btn">Agregar Registro</a>
+
+        <form action="{{ url_for('generar_pdf') }}" method="post">
+            <label for="fecha">Seleccionar mes y año:</label>
+            <input type="month" id="fecha" name="fecha" required>
+            <button type="submit" class="btn btn-secondary">Generar PDF</button>
+        </form>
+
+
+    </div>
+</body>
+</html>

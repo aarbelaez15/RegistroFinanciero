@@ -1,0 +1,52 @@
+<!-- templates/pdf_template.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe Financiero</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Informe Financiero</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in registros %}
+                <tr>
+                    <td>${{ registro.monto }}</td>
+                    <td>{{ registro.fecha.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ registro.descripcion }}</td>
+                    <td>{{ registro.tipo }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
